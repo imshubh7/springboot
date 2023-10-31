@@ -1,4 +1,4 @@
-package com.sdelab.sdelab.weather;
+package com.sdelab.sdelab.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
