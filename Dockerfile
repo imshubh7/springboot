@@ -1,5 +1,5 @@
 # Use the official Maven image as the build image
-FROM maven:3.8.4-openjdk-11-slim AS builder
+FROM maven AS builder
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -14,7 +14,7 @@ RUN mvn dependency:go-offline
 COPY src ./src
 
 # Build the JAR file
-RUN mvn package -DskipTests
+RUN mvn clean install
 
 # Use the official OpenJDK 11 image as the runtime image
 FROM openjdk:11-jre-slim
