@@ -46,7 +46,6 @@ public class WeatherService {
                 .get()
                 .uri(ENDPOINT_URL, latitude, longitude)
                 .exchangeToMono(res -> {
-                    System.out.printf("Calling api\n");
                     if (res.statusCode().equals(HttpStatus.OK)) {
                         return res.bodyToMono(Weather.class).cache();
                     }
@@ -56,7 +55,7 @@ public class WeatherService {
                     }
                 }).cache(Duration.ofMinutes(5))
                 .retryWhen(Retry.backoff(2, Duration.ofSeconds(1)))
-                .timeout(Duration.ofSeconds(5))
+                .timeout(Duration.ofSeconds(15))
                 .doOnSuccess(weather-> log.info(LOG_SUCCESS_MESSAGE,correlationId));
     }
 }
