@@ -1,11 +1,11 @@
 package com.sdelab.sdelab.exception;
 
-public class WeatherRuntimeException extends RuntimeException{
+public class NotFoundException extends Exception{
 
     private int status;
 
-    public WeatherRuntimeException(int status){
-        super();
+    public NotFoundException(int status, String message) {
+        super(message);
         this.status = status;
     }
 

@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Component
-public class CorrelationIdFilter extends OncePerRequestFilter {
+public class Filter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -25,8 +25,6 @@ public class CorrelationIdFilter extends OncePerRequestFilter {
 
         // Set the correlation ID in the request context for downstream components
         request.setAttribute("correlationId", correlationId);
-
-
         // Continue the request chain
         filterChain.doFilter(request, response);
     }

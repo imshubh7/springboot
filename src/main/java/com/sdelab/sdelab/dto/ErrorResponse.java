@@ -1,6 +1,8 @@
 package com.sdelab.sdelab.dto;
 
 
+import com.sdelab.sdelab.util.StatusCodeToErrorMapping;
+
 import java.util.List;
 
 public class ErrorResponse {
@@ -13,7 +15,12 @@ public class ErrorResponse {
     private String timestamp;
     private String request_id;
 
-    public ErrorResponse() {
+    public ErrorResponse(int statusCode) {
+        status = statusCode;
+        error = StatusCodeToErrorMapping.getError(statusCode);
+        error_code = StatusCodeToErrorMapping.getErrorCode(statusCode);
+        message = StatusCodeToErrorMapping.getMessage(statusCode);
+        error_type = StatusCodeToErrorMapping.getErrorType(statusCode);
     }
 
     public int getStatus() {
