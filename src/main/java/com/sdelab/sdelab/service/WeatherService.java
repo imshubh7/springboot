@@ -37,7 +37,7 @@ public class WeatherService {
     }
 
 
-    @Cacheable(value = "weatherData",key = "{#latitude, #longitude}")
+    //@Cacheable(value = "weatherData",key = "{#latitude, #longitude}")
     public Mono<Weather> getWeatherData(double latitude, double longitude, HttpServletRequest request) {
         String correlationId = (String) request.getAttribute("correlationId");
         log.info(LOG_MESSAGE,correlationId);
@@ -47,15 +47,14 @@ public class WeatherService {
                 .uri(ENDPOINT_URL, latitude, longitude)
                 .exchangeToMono(res -> {
                     if (res.statusCode().equals(HttpStatus.OK)) {
-                        return res.bodyToMono(Weather.class).cache();
+                        return res.bodyToMono(Weather.class);
                     }
                     else {
                         log.error(LOG_FAILURE_MESSAGE, correlationId, res.statusCode().value());
                         return Mono.error(StatusCodeToErrorMapping.getException(res.statusCode().value()));
                     }
-                }).cache(Duration.ofMinutes(5))
+                })
                 .retryWhen(Retry.backoff(2, Duration.ofSeconds(1)))
-                .timeout(Duration.ofSeconds(15))
-                .doOnSuccess(weather-> log.info(LOG_SUCCESS_MESSAGE,correlationId));
+                .timeout(Duration.ofSeconds(15));
     }
 }

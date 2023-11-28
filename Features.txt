@@ -1,0 +1,10 @@
+1- Reactive Programming in Spring boot
+2- AOP Programming in Spring Boot
+3- Retry Strategy
+4- Exception Handling for cases when third party api is down
+5- Caching Strategy
+6- Logs with Trace-Id for easy debugging
+7- Continuous Deployment with Github repo using docker image
+8- Prometheus and Grafana for monitoring
+9- Distributed Tracing with jaeger
+10- Swagger integration
