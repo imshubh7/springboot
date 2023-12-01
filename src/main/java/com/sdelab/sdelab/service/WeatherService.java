@@ -1,19 +1,11 @@
 package com.sdelab.sdelab.service;
 
-import com.sdelab.sdelab.constants.ErrorConstant;
 import com.sdelab.sdelab.constants.PathConstant;
 import com.sdelab.sdelab.entity.Weather;
-import com.sdelab.sdelab.exception.WeatherRuntimeException;
 import com.sdelab.sdelab.util.StatusCodeToErrorMapping;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +21,6 @@ public class WeatherService {
     private static final Logger log = LoggerFactory.getLogger(WeatherService.class);
     private static final String ENDPOINT_URL = "/forecast?latitude={latitude}&longitude={longitude}&current=temperature_2m&forecast_days=1";
     private static final String LOG_MESSAGE = "Request with Correlation ID: {} received in WeatherService";
-    private static final String LOG_SUCCESS_MESSAGE = "Request with Correlation ID: {} was sent data successfully from WeatherService";
     private static final String LOG_FAILURE_MESSAGE = "Request with Correlation ID: {} failed in WeatherService with Error: {}";
 
     public WeatherService(WebClient.Builder webClientBuilder) {

@@ -1,9 +1,14 @@
 package com.sdelab.sdelab.util;
 
+import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.Tracer;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -17,12 +22,8 @@ public class Filter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         // Generate or extract the correlation ID
-        String correlationId = request.getHeader("X-Correlation-ID");
-        if (correlationId == null || correlationId.isEmpty()) {
-            correlationId = UUID.randomUUID().toString();
-            response.setHeader("X-Correlation-ID",correlationId);
-        }
-
+        String correlationId = Span.current().getSpanContext().getTraceId();
+        response.setHeader("X-Correlation-ID",correlationId);
         // Set the correlation ID in the request context for downstream components
         request.setAttribute("correlationId", correlationId);
         // Continue the request chain

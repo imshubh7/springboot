@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.net.UnknownHostException;
-import java.time.LocalDateTime;
 import java.util.concurrent.TimeoutException;
 
 @RestControllerAdvice
@@ -29,12 +28,7 @@ public class ExceptionHandler {
         String correlationId = (String) request.getAttribute(CORRELATION_ID);
         log.error(ERROR_MESSAGE, correlationId, e.getMessage());
 
-        ErrorResponse errorResponse = new ErrorResponse(e.getStatus());
-
-        errorResponse.setTimestamp(LocalDateTime.now().toString());
-        errorResponse.setRequest_id((String) request.getAttribute(CORRELATION_ID));
-
-        return errorResponse;
+        return new ErrorResponse(e.getStatus(), correlationId);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -44,12 +38,7 @@ public class ExceptionHandler {
         String correlationId = (String) request.getAttribute(CORRELATION_ID);
         log.error(ERROR_MESSAGE, correlationId, e.getMessage());
 
-        ErrorResponse errorResponse = new ErrorResponse(400);
-
-        errorResponse.setTimestamp(LocalDateTime.now().toString());
-        errorResponse.setRequest_id(correlationId);
-
-        return errorResponse;
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), correlationId);
     }
 
     @ResponseStatus(HttpStatus.BAD_GATEWAY)
@@ -59,12 +48,7 @@ public class ExceptionHandler {
         String correlationId = (String) request.getAttribute(CORRELATION_ID);
         log.error(ERROR_MESSAGE, correlationId, e.getMessage());
 
-        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_GATEWAY.value());
-
-        errorResponse.setTimestamp(LocalDateTime.now().toString());
-        errorResponse.setRequest_id(correlationId);
-
-        return errorResponse;
+        return new ErrorResponse(HttpStatus.BAD_GATEWAY.value(), correlationId);
     }
 
     @ResponseStatus(HttpStatus.GATEWAY_TIMEOUT)
@@ -74,11 +58,6 @@ public class ExceptionHandler {
         String correlationId = (String) request.getAttribute(CORRELATION_ID);
         log.error(ERROR_MESSAGE, correlationId, e.getMessage());
 
-        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.GATEWAY_TIMEOUT.value());
-
-        errorResponse.setTimestamp(LocalDateTime.now().toString());
-        errorResponse.setRequest_id(correlationId);
-
-        return errorResponse;
+        return new ErrorResponse(HttpStatus.GATEWAY_TIMEOUT.value(), correlationId);
     }
 }

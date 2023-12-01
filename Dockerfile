@@ -25,8 +25,8 @@ WORKDIR /app
 # Copy the JAR file from the builder stage to the runtime image
 COPY --from=builder /app/target/sdelab-0.0.1-SNAPSHOT.jar ./app.jar
 
-# Expose the port that your application will run on
-EXPOSE 8080
+ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar .
+ENV JAVA_TOOL_OPTIONS "-javaagent:./opentelemetry-javaagent.jar"
 
 # Command to run the application
 CMD ["java", "-jar", "app.jar"]
