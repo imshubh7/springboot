@@ -1,8 +1,22 @@
 # Springboot Weather API
 
-## Description
+## Introduction
 
 This Spring Boot application utilizes a third-party API to fetch weather data. The project is developed for learning purposes and includes various features to showcase different aspects of Spring Boot development.
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [Steps to Run Locally](#steps-to-run-locally)
+- Swagger
+- [Open telemetry](#opentelemetry)
+- Prometheus
+- Grafana
+- Actuator
+- Jaeger
+
 
 ## Features
 
@@ -29,14 +43,15 @@ This Spring Boot application utilizes a third-party API to fetch weather data. T
 10. **Data Validation**
     - How data validation is handled within the application.
 
-## Table of Contents
+## Steps to run locally
 
-- [Introduction](#springboot-weather-api)
-- [Description](#description)
-- [Features](#features)
-- [Table of Contents](#table-of-contents)
-- [Screenshots](#screenshots)
+1. Clone the repo
+2. Start Docker locally in your computer
+3. Run the command "docker-compose up" in the root of project
+4. Now the weather-api application should be available on port 8080. Try hitting http://localhost:8080/actuator/health in your browser.
 
-## Screenshots
+In docker desktop you can see the following containers running
+![Containers](docs/img/docker.png)
 
+## Opentelemetry
 ![Grafana](docs/img/grafana.png)
