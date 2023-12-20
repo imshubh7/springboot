@@ -34,11 +34,10 @@ public class WeatherController {
         this.weatherService = weatherService;
     }
 
-    @Cacheable(value = "weatherData",key = "{#latitude, #longitude}")
     @GetMapping(PathConstant.GET_FORECAST_URL_CONTROLLER)
     public Mono<Weather> getData(@RequestParam @Min(value = -90) @Max(value = 90) double latitude, @RequestParam @Min(value = -180) @Max(value = 180) double longitude, HttpServletRequest request){
         String correlationId = (String) request.getAttribute("correlationId");
         log.info(LOG_MESSAGE,correlationId);
-        return weatherService.getWeatherData(latitude, longitude, request).cache(Duration.ofMinutes(5));
+        return weatherService.getWeatherData(latitude, longitude, request);
     }
 }

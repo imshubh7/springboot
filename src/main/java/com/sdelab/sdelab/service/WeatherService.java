@@ -4,6 +4,7 @@ import com.sdelab.sdelab.constants.PathConstant;
 import com.sdelab.sdelab.entity.Weather;
 import com.sdelab.sdelab.util.StatusCodeToErrorMapping;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -27,8 +28,7 @@ public class WeatherService {
         this.webClient = webClientBuilder.baseUrl(PathConstant.OPEN_METEO_BASE_URL).build();
     }
 
-
-    //@Cacheable(value = "weatherData",key = "{#latitude, #longitude}")
+    @Cacheable(value = "weatherData",key = "{#latitude, #longitude}")
     public Mono<Weather> getWeatherData(double latitude, double longitude, HttpServletRequest request) {
         String correlationId = (String) request.getAttribute("correlationId");
         log.info(LOG_MESSAGE,correlationId);
@@ -45,6 +45,7 @@ public class WeatherService {
                         return Mono.error(StatusCodeToErrorMapping.getException(res.statusCode().value()));
                     }
                 })
+                .cache(Duration.ofMinutes(5))
                 .retryWhen(Retry.backoff(2, Duration.ofSeconds(1)))
                 .timeout(Duration.ofSeconds(15));
     }
