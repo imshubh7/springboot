@@ -10,7 +10,7 @@ This Spring Boot application utilizes a third-party API to fetch weather data. T
 - [Table of Contents](#table-of-contents)
 - [Features](#features)
 - [Steps to Run Locally](#steps-to-run-locally)
-- Swagger
+- [Swagger](#swagger)
 - [Open telemetry](#opentelemetry)
 - Prometheus
 - Grafana
@@ -52,6 +52,12 @@ This Spring Boot application utilizes a third-party API to fetch weather data. T
 
 In docker desktop you can see the following containers running
 ![Containers](docs/img/docker.png)
+
+## Swagger
+
+You can see the swagger by visiting http://localhost:8080/swagger-ui/index.html#/ in your browser.
+
+You can import the postman collection given in docs folder and that will you gave all the end points available.
 
 ## Opentelemetry
 ![Grafana](docs/img/grafana.png)

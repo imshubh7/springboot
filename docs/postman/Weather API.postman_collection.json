@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "5ef7d974-c1ec-43c3-a19c-45122288b2e9",
+		"name": "Weather API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7821858"
+	},
+	"item": [
+		{
+			"name": "Get Weather Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/weather/v1/forecast?latitude=68&longitude=10&current=temperature_2m&forecast_days=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"weather",
+						"v1",
+						"forecast"
+					],
+					"query": [
+						{
+							"key": "latitude",
+							"value": "68"
+						},
+						{
+							"key": "longitude",
+							"value": "10"
+						},
+						{
+							"key": "current",
+							"value": "temperature_2m"
+						},
+						{
+							"key": "forecast_days",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Swagger",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/swagger-ui.html",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"swagger-ui.html"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
